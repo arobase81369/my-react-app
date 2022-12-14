@@ -1,8 +1,15 @@
-
+import Car from "./guide/car";
 
 const Home = () => {
+
+    const Time = (a) => {
+        alert("Alert Clicked "+a);
+    }
+
+
     return <>
-    <h2>Home Page Content</h2>
+    <Car />
+    <h2 className="title" onClick={() => Time("New Click")}>Home Page Content</h2>
     </>
 }
 

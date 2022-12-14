@@ -7,6 +7,7 @@ import Nav from './components/nav';
 import Home from './components/home';
 import About from './components/about';
 import Products from './components/products';
+import Extra from './components/extra';
 
 
 
@@ -18,6 +19,7 @@ root.render(
        <Route index element={<Home />} />
        <Route path="about" element={<About />} />
        <Route path="products" element={<Products />} />
+       <Route path="extra" element={<Extra />} />
     </Route>
   </Routes>
   </BrowserRouter>

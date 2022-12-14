@@ -14,8 +14,13 @@ const Nav = () => {
         <li>
             <Link to="/products" >Products</Link>
         </li>
+        <li>
+            <Link to="/extra" >Extra</Link>
+        </li>
     </ul>
     </nav>
+
+    <Outlet />
     </>
 }
 
