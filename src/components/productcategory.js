@@ -1,34 +1,47 @@
-import { useState, useEffect } from "react";
-import { Grid } from "@mui/material";
 import { Container } from "@mui/system";
+import { useState, useEffect } from "react";
+import { Routes, Route, useParams, Link } from 'react-router-dom';
+import Button from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
+import IconButton from '@mui/material/IconButton';
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
 
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import { CardActionArea } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
+
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
-import { Link } from "react-router-dom";
-import { Box } from "@mui/system";
-import CircularProgress from '@mui/material/CircularProgress';
-import { useContext } from "react";
-import { CounterContext } from "./guide/counterContext";
+import CardActions from '@mui/material/CardActions';
+import { styled } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
+import CategoryProduct from "./categoryproduct";
+import Breadcrumbs from "./metrialui/breadcrumbs";
 
 
+const ProductCategory = () => {
 
-const Productlist = () => {
+    let { category } = useParams();
 
-  const [error, setError] = useState(null);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [items, setItems] = useState([]);
+    const [error, setError] = useState(null);
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [items, setItems] = useState([]);
 
-  const category = useContext(CounterContext);
+    console.log("Product Page"+category);
 
-  // Note: the empty deps array [] means
-  // this useEffect will run once
-  // similar to componentDidMount()
-  useEffect(() => {
+    let url = '';
 
-    let url = `https://arobasedesigns.in/ecommerce/wp-json/wc/v3/products?consumer_key=ck_41b1857032b50e2e90aebdb30a86bfaca6a9f640&consumer_secret=cs_e38d37febd6bedb12c0a119d8986c09a1dfb2b5c`;
+    if(category == "All") {
+        url = `https://arobasedesigns.in/ecommerce/wp-json/wc/v3/products?consumer_key=ck_41b1857032b50e2e90aebdb30a86bfaca6a9f640&consumer_secret=cs_e38d37febd6bedb12c0a119d8986c09a1dfb2b5c`;
+    } else {
+        url = `https://arobasedesigns.in/ecommerce/wp-json/wc/v3/products?category=${category}&consumer_key=ck_41b1857032b50e2e90aebdb30a86bfaca6a9f640&consumer_secret=cs_e38d37febd6bedb12c0a119d8986c09a1dfb2b5c`; 
+    }
+
+
+useEffect(() => {
 
     var requestOptions = {
       method: 'GET',
@@ -42,9 +55,6 @@ const Productlist = () => {
           setItems(result);
           console.log(result);
         },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
         (error) => {
           setIsLoaded(true);
           setError(error);
@@ -67,10 +77,14 @@ const Productlist = () => {
   } else {
     return (
       <>
+      <Container maxWidth="md">
+      <h2>Our Products</h2>
+      <Breadcrumbs parent="Home" child="Our Products" />
+      <CategoryProduct />
         <Grid container spacing={2}>
           {items.map(item => (
             <Grid item md={4} xs={6} key={item.id}>
-              <Link to={item.slug} style={{ textDecoration: 'none' }}>
+              <Link to={`../products/${item.slug}`} style={{ textDecoration: 'none' }}>
                 <Card sx={{ maxWidth: 345 }}>
                   <CardActionArea>
                     <CardMedia
@@ -94,6 +108,7 @@ const Productlist = () => {
             </Grid>
           ))}
         </Grid>
+        </Container>
       </>
     );
   }
@@ -101,4 +116,4 @@ const Productlist = () => {
 
 }
 
-export default Productlist;
+export default ProductCategory;

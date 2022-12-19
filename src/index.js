@@ -1,14 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route} from 'react-router-dom';
 
 import Nav from './components/nav';
 import Home from './components/home';
 import About from './components/about';
 import Products from './components/products';
+import ProductCategory from './components/productcategory';
 import Extra from './components/extra';
-
+import ProductDetail from './components/productdetail';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -17,10 +18,13 @@ root.render(
   <Routes>
     <Route path='/' element={<Nav />}>
        <Route index element={<Home />} />
-       <Route path="about" element={<About />} />
-       <Route path="products" element={<Products />} />
-       <Route path="extra" element={<Extra />} />
-    </Route>
+       
+        <Route path="about" element={<About />} />
+        <Route path="products" element={<Products />} />
+        <Route path="product-category/:category" element={<ProductCategory />} />
+        <Route path="extra" element={<Extra />} />
+        <Route exact path="products/:id" element={<ProductDetail /> } />
+</Route>
   </Routes>
   </BrowserRouter>
 );

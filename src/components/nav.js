@@ -1,24 +1,39 @@
- import { Outlet, Link } from "react-router-dom";
+ import { Outlet, Link} from "react-router-dom";
+ import { Menu, NoEncryption } from "@mui/icons-material";
+ import { MenuItem } from "@mui/material";
+ import Box from '@mui/material/Box';
+
+const preventDefault = (event: React.SyntheticEvent) => event.preventDefault();
 
 const Nav = () => {
     
     return <>
-    <nav>
-    <ul>
-        <li>
-            <Link to="/" >Home</Link>
-        </li>
-        <li>
-            <Link to="/about" >About</Link>
-        </li>
-        <li>
-            <Link to="/products" >Products</Link>
-        </li>
-        <li>
-            <Link to="/extra" >Extra</Link>
-        </li>
-    </ul>
-    </nav>
+    <Box
+      sx={{
+        display: 'flex',
+        backgroundColor: '#f9f9f9',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        typography: 'body1',
+        '& > :not(style) + :not(style)': {
+          ml: 2,
+        },
+      }}
+      onClick={preventDefault}
+    >
+      <MenuItem>
+<Link to="/" style={{ textDecoration:'none'}}>Home</Link>
+</MenuItem>
+<MenuItem>
+<Link to="/about" style={{ textDecoration:'none'}}>About</Link>
+</MenuItem>
+<MenuItem>
+<Link to="/products/" style={{ textDecoration:'none'}}>Products</Link>
+</MenuItem>
+<MenuItem>
+ <Link to="/extra" style={{ textDecoration:'none'}}>Extra</Link>
+</MenuItem>
+    </Box>
 
     <Outlet />
     </>
